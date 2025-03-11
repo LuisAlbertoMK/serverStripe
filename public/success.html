@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gracias por su preferencia!</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div style="margin-top: 10%; font-family: Arial, sans-serif; color: #333; padding: 20px; background-color: #1F7832; border: 1px solid #195c28; border-radius: 5px; text-align: center; height: 300px; width: 90vw; display: flex; justify-content: center; align-items: center; margin-left: 2vw;">
+    <div>
+        <h1 style="font-weight: 100; color: #ffffff;">¡Transacción exitosa!</h1>
+        <h3 style="color: #ffffff;">Redirigiendo...</h3>
+    </div>
+  </div>
+  <script>
+    function extraerUrl() {
+        const urlCompleta = window.location.href;
+        const parsedURL = new URL(urlCompleta);
+        return parsedURL.origin;
+    }
+
+    setTimeout(function() {
+        const donde = 'http://localhost:4242';
+        const ruta = extraerUrl() === donde ? 'http://localhost:4200/inicio' : 'https://speed-pro-desarrollo.web.app/inicio';
+        
+        // Redirigir a la ruta correcta
+        window.location.replace(ruta);
+    }, 4000);
+</script>
+</body>
+</html>

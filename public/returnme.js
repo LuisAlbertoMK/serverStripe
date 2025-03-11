@@ -7,7 +7,7 @@ function extraerUrl() {
 setTimeout(function() {
     const donde = 'http://localhost:4242';
     // https://serverstripe.onrender.com
-    const ruta = extraerUrl() === donde ? 'http://localhost:4200/inicio' : 'https://speed-pro-desarrollo.web.app/inicio';
+    const ruta = extraerUrl() === donde ? 'http://localhost:4200/planes' : 'https://speed-pro-desarrollo.web.app/planes';
     
     // Redirigir a la ruta correcta
     window.location.replace(ruta);

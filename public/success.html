@@ -11,20 +11,6 @@
         <h3 style="color: #ffffff;">Redirigiendo...</h3>
     </div>
   </div>
-  <script>
-    function extraerUrl() {
-        const urlCompleta = window.location.href;
-        const parsedURL = new URL(urlCompleta);
-        return parsedURL.origin;
-    }
-
-    setTimeout(function() {
-        const donde = 'http://localhost:4242';
-        const ruta = extraerUrl() === donde ? 'http://localhost:4200/inicio' : 'https://speed-pro-desarrollo.web.app/inicio';
-        
-        // Redirigir a la ruta correcta
-        window.location.replace(ruta);
-    }, 4000);
-</script>
+  <script src="returnme.js"></script>
 </body>
 </html>

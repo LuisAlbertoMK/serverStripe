@@ -35,8 +35,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
-const YOUR_DOMAIN = 'http://localhost:4242';
-
+const YOUR_DOMAIN = 'https://serverstripe.onrender.com';
 
 const whiteList=['https://speed-pro-desarrollo.web.app','http://localhost:4200'];
 app.post('/checkout', async (req, res) => {

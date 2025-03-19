@@ -37,7 +37,15 @@
           descripcion,
           // Formato ISO para la fecha
         };
-        fetch(`http://localhost:3000/api/pagos/registro`, {
+        const donde = 'http://localhost:4242';
+        const {origin, pathname} = extraerUrl();
+        const success = pathname.includes('success');
+        const ruta_fetch = 
+        origin === donde 
+        ? 'http://localhost:3000' 
+        : 'https://apispeed-i7gp.onrender.com';
+            console.log({donde, ruta});
+        fetch(`${ruta_fetch}/api/pagos/registro`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

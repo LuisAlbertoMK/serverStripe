@@ -12,5 +12,56 @@
     </div>
   </div>
   <script src="returnme.js"></script>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+        const id_cliente = urlParams.get('id_cliente');
+        const monto = urlParams.get('monto');
+        const metodo_pago = urlParams.get('metodo_pago');
+        const descripcion = urlParams.get('descripcion');
+        // const dato_pago = urlParams.get('dato_pago');
+        // console.log(dato_pago)
+        // Aquí puedes hacer una llamada a tu API para registrar el pago
+        
+        const fecha = new Date()
+        
+        const mes = fecha.getMonth() + 1
+        const anio = fecha.getFullYear()
+        const newID = `${id_cliente}-${mes.toString().padStart(2, '0')}${anio}`
+        
+
+        const pagoData = {
+          id: newID,
+          id_cliente,
+          monto,
+          metodo_pago,
+          descripcion,
+          // Formato ISO para la fecha
+        };
+        fetch(`http://localhost:3000/api/pagos/registro`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(pagoData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Pago registrado:', data);
+            setTimeout(function() {
+            const donde = 'http://localhost:4242';
+            // 'http://localhost:4242';
+            // https://serverstripe.onrender.com
+            const {origin, pathname} = extraerUrl();
+            const success = pathname.includes('success');
+            const ruta = origin === donde ? 'http://localhost:4200/planes' : 'https://speed-pro-desarrollo.web.app/planes';
+            console.log({donde, ruta});
+            // Redirigir a la ruta correcta
+            window.location.replace(ruta);
+        }, 2000);
+        })
+        .catch(error => {
+            console.error('Error al registrar el pago:', error);
+        });
+  </script>
 </body>
 </html>

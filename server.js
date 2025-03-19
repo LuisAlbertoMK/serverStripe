@@ -35,10 +35,13 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
-const YOUR_DOMAIN = 'https://serverstripe.onrender.com';
-
+const YOUR_DOMAIN = 'http://localhost:4242';
+// https://serverstripe.onrender.com
 const whiteList=['https://speed-pro-desarrollo.web.app','http://localhost:4200'];
 app.post('/checkout', async (req, res) => {
+  
+
+  const  {id_cliente, monto, metodo_pago, descripcion} = req.query;
   const items = req.body.items.map((item)=>{
     return {
       price_data: {
@@ -55,10 +58,12 @@ app.post('/checkout', async (req, res) => {
   const session = await stripe.checkout.sessions.create({
     line_items: [...items],
     mode: 'payment',
-    success_url: `${YOUR_DOMAIN}/success.html`,
-    cancel_url: `${YOUR_DOMAIN}/cancel.html`,
+    success_url: `${YOUR_DOMAIN}/success.html?id_cliente=${id_cliente}&monto=${monto}&metodo_pago=${metodo_pago}&descripcion=${descripcion}`,
+    cancel_url: `${YOUR_DOMAIN}/cancel.html?id_cliente=${id_cliente}`
   })
 
+  console.log('session', session)
+ 
   res.status(200).json(session);
  
 });

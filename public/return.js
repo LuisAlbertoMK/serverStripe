@@ -1,4 +1,4 @@
-initialize();
+// initialize();
 
 async function initialize() {
   const queryString = window.location.search;

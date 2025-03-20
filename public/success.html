@@ -44,7 +44,7 @@
         origin === donde 
         ? 'http://localhost:3000' 
         : 'https://apispeed-i7gp.onrender.com';
-            console.log({donde, ruta});
+            console.log({donde, ruta_fetch});
         fetch(`${ruta_fetch}/api/pagos/registro`, {
             method: 'POST',
             headers: {
@@ -54,16 +54,13 @@
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Pago registrado:', data);
+            // console.log('Pago registrado:', data);
             setTimeout(function() {
             const donde = 'http://localhost:4242';
-            // 'http://localhost:4242';
-            // https://serverstripe.onrender.com
             const {origin, pathname} = extraerUrl();
             const success = pathname.includes('success');
             const ruta = origin === donde ? 'http://localhost:4200/planes' : 'https://speed-pro-desarrollo.web.app/planes';
-            console.log({donde, ruta});
-            // Redirigir a la ruta correcta
+            
             window.location.replace(ruta);
         }, 2000);
         })

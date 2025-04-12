@@ -13,7 +13,7 @@ setTimeout(function() {
     const {origin, pathname} = extraerUrl();
     const success = pathname.includes('success');
     const ruta = origin === donde ? 'http://localhost:4200/planes' : 'https://speed-pro-desarrollo.web.app/planes';
-    console.log({donde, ruta});
+    // console.log({donde, ruta});
     // Redirigir a la ruta correcta
-    // window.location.replace(ruta);
+    window.location.replace(ruta);
 }, 2000);

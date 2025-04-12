@@ -11,8 +11,14 @@
         <h3 style="color: #ffffff;">Redirigiendo...</h3>
     </div>
   </div>
-  <script src="returnme.js"></script>
   <script>
+    function extraerUrl() {
+    const urlCompleta = window.location.href;
+    const parsedURL = new URL(urlCompleta);
+    
+    const {pathname} = parsedURL;
+    return { origin: parsedURL.origin, pathname };
+  }
     const urlParams = new URLSearchParams(window.location.search);
         const id_cliente = urlParams.get('id_cliente');
         const monto = urlParams.get('monto');

@@ -13,12 +13,11 @@
   </div>
   <script>
     function extraerUrl() {
-    const urlCompleta = window.location.href;
-    const parsedURL = new URL(urlCompleta);
-    
-    const {pathname} = parsedURL;
-    return { origin: parsedURL.origin, pathname };
-  }
+      return new URL(window.location.href);
+    }
+    function rutaURL(origin) {
+      return origin === "http://localhost:4242" ? 'http://localhost:4200/planes' : 'https://speed-pro-desarrollo.web.app/planes';
+    }
     const urlParams = new URLSearchParams(window.location.search);
         const id_cliente = urlParams.get('id_cliente');
         const monto = urlParams.get('monto');
@@ -40,17 +39,14 @@
           id_cliente,
           monto,
           metodo_pago,
-          descripcion,
-          // Formato ISO para la fecha
+          descripcion
         };
-        const donde = 'http://localhost:4242';
-        const {origin, pathname} = extraerUrl();
-        const success = pathname.includes('success');
+        const {origin} = extraerUrl()
         const ruta_fetch = 
-        origin === donde 
+        rutaURL(origin)
         ? 'http://localhost:3000' 
         : 'https://apispeed-i7gp.onrender.com';
-            console.log({donde, ruta_fetch});
+            console.log({origin, ruta_fetch});
         fetch(`${ruta_fetch}/api/pagos/registro`, {
             method: 'POST',
             headers: {
@@ -60,15 +56,10 @@
         })
         .then(response => response.json())
         .then(data => {
-            // console.log('Pago registrado:', data);
+            const {origin} = extraerUrl()
             setTimeout(function() {
-            const donde = 'http://localhost:4242';
-            const {origin, pathname} = extraerUrl();
-            const success = pathname.includes('success');
-            const ruta = origin === donde ? 'http://localhost:4200/planes' : 'https://speed-pro-desarrollo.web.app/planes';
-            
-            window.location.replace(ruta);
-        }, 2000);
+              window.location.replace(rutaURL(origin));
+            }, 2000);
         })
         .catch(error => {
             console.error('Error al registrar el pago:', error);

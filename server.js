@@ -1,3 +1,5 @@
+// Cargar variables de entorno
+require('dotenv').config();
 // This is your test secret API key.
 const stripe = require('stripe')('sk_test_51NOlofEg8nFeK6NCYFm9FST2EY3m3PbUkEXJgIOEdF8WJ44UtQtZtry1wCK1MIQrAQmiQWbp8zTYQSqWazh88al80091NAHBAc');
 const express = require('express');
@@ -35,12 +37,17 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
-const YOUR_DOMAIN = 'https://serverstripe.onrender.com';
+// Determinar el dominio según el entorno
+const isDevelopment = process.env.NODE_ENV === 'development';
+const YOUR_DOMAIN = isDevelopment
+  ? 'http://localhost:4242'
+  : 'localhost:4300';
 // https://serverstripe.onrender.com
-const whiteList=['https://speed-pro-desarrollo.web.app','http://localhost:4200'];
-app.post('/checkout', async (req, res) => {
-  
+const whiteList = process.env.NODE_ENV === 'production'
+      ? ['https://speed-pro-desarrollo.web.app']
+      : ['http://localhost:4200'];
 
+app.post('/checkout', async (req, res) => {
   const  {id_cliente, monto, metodo_pago, descripcion} = req.query;
   const items = req.body.items.map((item)=>{
     return {
@@ -59,7 +66,7 @@ app.post('/checkout', async (req, res) => {
     line_items: [...items],
     mode: 'payment',
     success_url: `${YOUR_DOMAIN}/success.html?id_cliente=${id_cliente}&monto=${monto}&metodo_pago=${metodo_pago}&descripcion=${descripcion}`,
-    cancel_url: `${YOUR_DOMAIN}/cancel.html?id_cliente=${id_cliente}`
+    cancel_url: `${YOUR_DOMAIN}/cancel.html?id_cliente=${id_cliente}`,
   })
 
   res.status(200).json(session);

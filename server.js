@@ -44,7 +44,7 @@ const YOUR_DOMAIN = isDevelopment
   : 'localhost:4300';
 // https://serverstripe.onrender.com
 const whiteList = process.env.NODE_ENV === 'production'
-      ? ['https://speed-pro-desarrollo.web.app']
+      ? ['https://speed-pro-desarrollo.web.app','https://apputos.app']
       : ['http://localhost:4200'];
 
 app.post('/checkout', async (req, res) => {
